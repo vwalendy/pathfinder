@@ -51,7 +51,6 @@ object Objects3D:
   ):
     def scale(v: Vec3D) = this.copy(vertices = vertices.map(_ * v))
     def translate(v: Vec3D) = this.copy(vertices = vertices.map(_ + v))
-    def rotate(axis: Vec3D, angle: Float) = ???
     def withTexture(texture: String) = this.copy(texture = texture)
 
   // case class Color(r: Float, g: Float, b: Float, a: Float)
