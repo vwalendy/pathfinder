@@ -53,14 +53,30 @@ trait StringParserTerrain extends TerrainGameDef[?, ?]:
     */
   def terrainFunction(levelVector: Vector[Vector[Char]]): Pos => Boolean =
     (pos: Pos) =>
-      ???
+      val row = pos.row
+      val col = pos.col
+
+      val rowInside =
+        row >=0 && row < levelVector.length
+      val colInside =
+        rowInside && col >=0 && col < levelVector(row).length 
+
+      colInside && levelVector(row)(col) != '-'
 
   /** This function should return the position of character `c` in the terrain
     * described by `levelVector`. You can assume that `c` appears exactly once
     * in the terrain.
     */
   def findChar(c: Char, levelVector: Vector[Vector[Char]]): Pos =
-    ???
+    //Find the row index containing `c`
+    val row =
+      levelVector.indexWhere(_.contains(c))
+
+    //Find the column index containing `c` in the row
+    val col =
+      levelVector(row).indexOf(c)
+
+    Pos(row, col)
 
   lazy val vector: Vector[Vector[Char]] =
     Vector(level.split("\r?\n").map(str => Vector(str*))*)

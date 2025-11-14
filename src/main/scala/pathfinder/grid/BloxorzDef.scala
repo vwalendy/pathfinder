@@ -61,17 +61,22 @@ trait BloxorzDef extends TerrainGameDef[BloxorzState, BloxorzMove]:
   def startPos: Pos
 
   def startState: BloxorzState =
-    ???
+    BloxorzState(startPos, startPos)
 
   def physicalNeighbors(state: BloxorzState): Map[BloxorzMove, BloxorzState] =
-    ???
+    Map(
+      BloxorzMove.Left  -> state.left,
+      BloxorzMove.Right -> state.right,
+      BloxorzMove.Up    -> state.up,
+      BloxorzMove.Down  -> state.down
+    )
 
   /** Returns `true` if the state is entirely inside the terrain. */
   def isLegal(state: BloxorzState): Boolean =
-    ???
+    terrain(state.b1) && terrain(state.b2)
 
   def neighbors(state: BloxorzState): Map[BloxorzMove, BloxorzState] =
-    ???
+    physicalNeighbors(state).filter((_,nextState) => isLegal(nextState))
 
   def isDone(state: BloxorzState): Boolean =
-    ???
+    state.isStanding && state.b1 == goal
